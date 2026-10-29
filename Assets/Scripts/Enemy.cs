@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (pointA != null) pointA.SetParent(null);
+        if (pointB != null) pointB.SetParent(null);
         currentTarget = pointB; // ให้เริ่มเดินไปที่จุด B ก่อน
     }
 

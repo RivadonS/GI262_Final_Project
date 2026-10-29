@@ -7,9 +7,8 @@ public class FlyingEnemy : Enemy
         if (wallDetect == null) return;
 
         Vector2 forwardDir = isFacingRight ? Vector2.right : Vector2.left;
-        RaycastHit2D wallInfo = Physics2D.Raycast(wallDetect.position, forwardDir, rayDistance, groundLayer);
+        RaycastHit2D wallInfo = Physics2D.Raycast(wallDetect.position, forwardDir, rayDistance, wallLayer);
 
-        // ตัวบินเช็คแค่กำแพงอย่างเดียว ไม่สนใจเหว
         if (wallInfo.collider != null)
         {
             SwitchTarget();
