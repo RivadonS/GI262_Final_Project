@@ -4,3 +4,12 @@ Character (Player)
 -Double Jump
 -Dash
 -Flip
+
+Enemy
+
+- Walk, Fly in route
+- flip
+
+UI
+
+- Pause
