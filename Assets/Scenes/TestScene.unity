@@ -1423,6 +1423,7 @@ GameObject:
   - component: {fileID: 1007716290}
   - component: {fileID: 1007716289}
   - component: {fileID: 1007716291}
+  - component: {fileID: 1007716292}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1596,7 +1597,7 @@ MonoBehaviour:
   jumpForce: 8
   dashSpeed: 20
   dashDuration: 0.2
-  dashCooldown: 1
+  dashStaminaCost: 15
   groundCheck: {fileID: 1862947390}
   groundLayer:
     serializedVersion: 2
@@ -1687,6 +1688,26 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
     m_Priority: 0
+--- !u!114 &1007716292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007716286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7106a29a6efcb3d43af24ddeacd3c7fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  startingVIT: 10
+  startingSTR: 5
+  startingDEF: 3
+  startingSTA: 50
+  currentHealth: 0
+  currentStamina: 0
+  staminaRegenRate: 5
+  staminaRegenDelay: 1.5
 --- !u!1 &1013899890
 GameObject:
   m_ObjectHideFlags: 0
