@@ -3,11 +3,11 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     [Header("Map Settings")]
-    public GameObject[] chunkPrefabs; // ใส่ Prefab ของ Chunk 01, 02 ลงไป
-    public int numberOfChunks = 5;    // อยากให้ด่านยาวแค่ไหนปรับตรงนี้
+    public GameObject[] chunkPrefabs;
+    public int numberOfChunks = 5;
     
     [Header("Spawn Position")]
-    public Transform startPosition;   // จุดเริ่มต้นของการสร้างด่าน
+    public Transform startPosition;
 
     private void Start()
     {
@@ -16,7 +16,6 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateMap()
     {
-        // เริ่มต้นที่จุด Start
         Vector3 nextSpawnPosition = startPosition.position;
 
         for (int i = 0; i < numberOfChunks; i++)
@@ -28,7 +27,7 @@ public class MapGenerator : MonoBehaviour
             // 2. เสกด่านออกมาที่ตำแหน่ง nextSpawnPosition
             GameObject newChunk = Instantiate(chunkToSpawn, nextSpawnPosition, Quaternion.identity);
 
-            // 3. ค้นหาจุดจบของด่านนี้ (ต้องชื่อ "EndPoint" เป๊ะๆ)
+            // 3. ค้นหาจุดจบของด่านนี้
             Transform endPoint = newChunk.transform.Find("EndPoint");
 
             if (endPoint != null)

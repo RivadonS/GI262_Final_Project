@@ -4,7 +4,9 @@ public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     public float moveSpeed = 3f;
-    public int maxHealth = 100;
+    public float maxHealth = 100f;
+    public float attackDamage = 5f;
+    protected float currentHealth;
 
     [Header("Patrol Settings")]
     public float patrolDistance = 5f;
@@ -12,7 +14,7 @@ public class Enemy : MonoBehaviour
     private Vector2 rightBoundary;
     private Vector2 currentTargetPos;
     
-    private float flipTimer; // ⭐ เพิ่มตัวแปรกันบั๊กหันรัวๆ
+    private float flipTimer;
 
     [Header("Detection Settings")]
     public Transform groundDetect;
@@ -27,6 +29,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth; // เซ็ตเลือดเต็มตอนเกิด
         
         Vector2 startPos = transform.position;
         leftBoundary = new Vector2(startPos.x - patrolDistance, startPos.y);
@@ -37,8 +40,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        flipTimer -= Time.deltaTime; // ⭐ นับเวลาถอยหลัง
-
+        flipTimer -= Time.deltaTime;
         CheckWaypoints();
         CheckObstacles();
     }
@@ -60,7 +62,6 @@ public class Enemy : MonoBehaviour
 
     protected virtual void CheckWaypoints()
     {
-        // ⭐ เปลี่ยนมาเช็คระยะแค่แกน X (Mathf.Abs) ทำให้ไม่ว่าจะร่วงมาจากฟ้าหรือลอยนิดๆ ก็เดินถึงเป้าหมายได้
         if (Mathf.Abs(transform.position.x - currentTargetPos.x) < 0.2f)
         {
             SwitchTarget();
@@ -71,16 +72,47 @@ public class Enemy : MonoBehaviour
 
     protected void SwitchTarget()
     {
-        if (flipTimer > 0f) return; // ⭐ ถ้าเพิ่งหันมา ห้ามหันซ้ำทันทีเด็ดขาด (แก้บั๊กเต้นเบรกแดนซ์)
+        if (flipTimer > 0f) return;
 
         currentTargetPos = (currentTargetPos == leftBoundary) ? rightBoundary : leftBoundary;
-        flipTimer = 0.5f; // ⭐ เซ็ตคูลดาวน์ให้รอ 0.5 วินาทีถึงจะหันใหม่ได้
+        flipTimer = 0.5f;
     }
 
     protected void Flip()
     {
         isFacingRight = !isFacingRight;
         transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
+    }
+
+    // ฟังก์ชันรับดาเมจจาก Player
+    public virtual void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        Debug.Log(gameObject.name + " โดนตี! เลือดเหลือ: " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    protected virtual void Die()
+    {
+        // ทำลายตัวเองทิ้ง (SpawnNode จะตรวจจับได้ทันทีว่าตัวนี้ตายแล้วและเริ่มนับเวลาเกิดใหม่)
+        Destroy(gameObject); 
+    }
+
+    // เมื่อเดินชนผู้เล่น (ใช้ Physics 2D)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerStats player = collision.gameObject.GetComponent<PlayerStats>();
+            if (player != null)
+            {
+                player.TakeDamage(attackDamage);
+            }
+        }
     }
 
     protected virtual void OnDrawGizmosSelected()

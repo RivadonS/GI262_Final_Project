@@ -5,8 +5,8 @@ public class PlayerStats : MonoBehaviour
 {
     [Header("Base Stats Settings")]
     public float startingVIT = 10f;
-    public float startingSTR = 5f;
-    public float startingDEF = 3f;
+    public float startingSTR = 10f;
+    public float startingDEF = 5f;
     public float startingSTA = 50f;
 
     // Dictionary เก็บค่า Stats ทั้ง 4 อ้างอิงด้วย Enum ทำให้ O(1) ในการค้นหา (เร็วสุดๆ)
@@ -68,6 +68,22 @@ public class PlayerStats : MonoBehaviour
         {
             currentStamina += staminaRegenRate * Time.deltaTime; // ค่อยๆ เพิ่มตามเฟรมเรต
             if (currentStamina > GetMaxStamina()) currentStamina = GetMaxStamina(); // ป้องกันล้น
+        }
+    }
+
+    // ระบบรับดาเมจ
+    public void TakeDamage(float incomingDamage)
+    {
+        // คำนวณดาเมจจริงที่ได้รับ = ดาเมจศัตรู - พลังป้องกันเรา (อย่างน้อยเข้า 1 ดาเมจ)
+        float actualDamage = Mathf.Max(incomingDamage - GetDefense(), 1f); 
+        
+        currentHealth -= actualDamage;
+        Debug.Log("Player โดนดาเมจไป: " + actualDamage + " | เลือดเหลือ: " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player ตายแล้ว!");
+            // TODO: เรียกหน้าจอ Game Over หรือจุด Checkpoint
         }
     }
 }
