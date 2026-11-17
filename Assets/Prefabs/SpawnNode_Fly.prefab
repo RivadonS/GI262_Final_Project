@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85375eb16d46d6e4bb518004f05a2d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnPoint
-  possibleEnemies:
-  - {fileID: 5170668099779723359, guid: b07c4fc0f31aa0248b014e1621e86fa8, type: 3}
+  nodeType: 1
+  maxSpawns: 3
+  respawnDelay: 2
+  currentSpawnCount: 0
+  respawnTimer: 0
+  activeEnemy: {fileID: 0}

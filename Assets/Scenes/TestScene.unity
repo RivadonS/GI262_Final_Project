@@ -575,7 +575,7 @@ MonoBehaviour:
     ScreenPosition: {x: 0, y: 0}
     DeadZone:
       Enabled: 0
-      Size: {x: 0.2, y: 0.2}
+      Size: {x: 0.15, y: 0.5}
     HardLimits:
       Enabled: 0
       Size: {x: 0.8, y: 0.8}
@@ -584,8 +584,8 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 2, z: 0}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
-    Enabled: 0
-    Time: 0
+    Enabled: 1
+    Time: 0.2
     Smoothing: 0
     IgnoreY: 0
 --- !u!114 &428341294
@@ -1296,7 +1296,7 @@ MonoBehaviour:
   jumpAction:
     m_Name: Jump
     m_Type: 0
-    m_ExpectedControlType: 
+    m_ExpectedControlType: Button
     m_Id: ce003b44-bdad-4e93-a668-ddffec04d2bb
     m_Processors: 
     m_Interactions: 
@@ -1314,7 +1314,7 @@ MonoBehaviour:
   dashAction:
     m_Name: Dash
     m_Type: 0
-    m_ExpectedControlType: 
+    m_ExpectedControlType: Button
     m_Id: b46fa99d-a5d0-40d3-8461-0d2ef4ee0997
     m_Processors: 
     m_Interactions: 
@@ -1332,14 +1332,14 @@ MonoBehaviour:
   attackAction:
     m_Name: Attack
     m_Type: 0
-    m_ExpectedControlType: 
+    m_ExpectedControlType: Button
     m_Id: 92e9496d-c7b0-48e4-986e-9f38a1ad52c6
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 4f58b33b-9a15-447b-bba0-e1cb838938b6
-      m_Path: <Keyboard>/e
+      m_Id: 4a6bf99d-d0a7-4c33-ac6f-a1928cf4b8c1
+      m_Path: <Mouse>/leftButton
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -2502,6 +2502,10 @@ MonoBehaviour:
   - {fileID: 4997700847178576482, guid: e2c98b8d6084e0e4ba58c93b046c0063, type: 3}
   numberOfChunks: 5
   startPosition: {fileID: 369542200}
+  groundEnemies:
+  - {fileID: 1943452256062031854, guid: 9e9bae760c283ba4393553f46901b5af, type: 3}
+  flyingEnemies:
+  - {fileID: 5170668099779723359, guid: b07c4fc0f31aa0248b014e1621e86fa8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
